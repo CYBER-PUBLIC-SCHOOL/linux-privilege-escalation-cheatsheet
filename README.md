@@ -1,5 +1,4 @@
 Linux Privilege Escalation Cheat Sheet:-
-
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Tools 1:-
 
@@ -25,6 +24,7 @@ Tools 2:-
 BeRoot - Privilege Escalation Project - Windows / Linux / Mac
 
 linuxprivchecker.py - a Linux Privilege Escalation Check Script
+
 unix-privesc-check - Automatically exported from code.google.com/p/unix-privesc-check
 Privilege Escalation through sudo - Linux
 Checklists
