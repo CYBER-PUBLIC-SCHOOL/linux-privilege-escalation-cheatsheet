@@ -85,29 +85,28 @@ unix-privesc-check - Automatically exported from code.google.com/p/unix-privesc-
         Checks for default/weak MYSQL accounts
     
 Searches:
-    Locate all SUID/GUID files
-    Locate all world-writable SUID/GUID files
-    Locate all SUID/GUID files owned by root
-    Locate 'interesting' SUID/GUID files (i.e. nmap, vim etc)
-    Locate files with POSIX capabilities
-    List all world-writable files
-    Find/list all accessible *.plan files and display contents
-    Find/list all accessible *.rhosts files and display contents
-    Show NFS server details
-    Locate .conf and .log files containing keyword supplied at script runtime
-    List all *.conf files located in /etc
-    Locate mail
-    Platform/software specific tests:
-    Checks to determine if we're in a Docker container
-    Checks to see if the host has Docker installed
-    Checks to determine if we're in an LXC container
-    Looting for passwords
-    Files containing passwords
-
-    grep --color=auto -rnw '/' -ie "PASSWORD" --color=always 2> /dev/null
-    find . -type f -exec grep -i -I "PASSWORD" {} /dev/null \;
-    Old passwords in /etc/security/opasswd
-    The /etc/security/opasswd file is used also by pam_cracklib to keep the history of old passwords so that the user will not reuse them.
+        Locate all SUID/GUID files
+        Locate all world-writable SUID/GUID files
+        Locate all SUID/GUID files owned by root
+        Locate 'interesting' SUID/GUID files (i.e. nmap, vim etc)
+        Locate files with POSIX capabilities
+        List all world-writable files
+        Find/list all accessible *.plan files and display contents
+        Find/list all accessible *.rhosts files and display contents
+        Show NFS server details
+        Locate .conf and .log files containing keyword supplied at script runtime
+        List all *.conf files located in /etc
+        Locate mail
+        Platform/software specific tests:
+        Checks to determine if we're in a Docker container
+        Checks to see if the host has Docker installed
+        Checks to determine if we're in an LXC container
+        Looting for passwords
+        Files containing passwords
+        grep --color=auto -rnw '/' -ie "PASSWORD" --color=always 2> /dev/null
+        find . -type f -exec grep -i -I "PASSWORD" {} /dev/null \;
+        Old passwords in /etc/security/opasswd
+        The /etc/security/opasswd file is used also by pam_cracklib to keep the history of old passwords so that the user will not reuse them.
 
      Treat your opasswd file like your /etc/shadow file because it will end up containing user password hashes
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
