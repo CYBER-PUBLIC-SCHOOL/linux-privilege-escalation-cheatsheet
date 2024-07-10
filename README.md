@@ -167,21 +167,21 @@ Check if you have access with write permission on these files.
 Check inside the file, to find other paths with write permissions.
 
 
-/etc/init.d
-/etc/cron*
-/etc/crontab
-/etc/cron.allow
-/etc/cron.d 
-/etc/cron.deny
-/etc/cron.daily
-/etc/cron.hourly
-/etc/cron.monthly
-/etc/cron.weekly
-/etc/sudoers
-/etc/exports
-/etc/anacrontab
-/var/spool/cron
-/var/spool/cron/crontabs/root
+    /etc/init.d
+    /etc/cron*
+    /etc/crontab
+    /etc/cron.allow
+    /etc/cron.d 
+    /etc/cron.deny
+    /etc/cron.daily
+    /etc/cron.hourly
+    /etc/cron.monthly
+    /etc/cron.weekly
+    /etc/sudoers
+    /etc/exports
+    /etc/anacrontab
+    /var/spool/cron
+    /var/spool/cron/crontabs/root
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 crontab -l
 ls -alh /var/spool/cron;
