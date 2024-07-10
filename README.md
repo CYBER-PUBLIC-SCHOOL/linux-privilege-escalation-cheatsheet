@@ -65,25 +65,24 @@ unix-privesc-check - Automatically exported from code.google.com/p/unix-privesc-
     Locate cron jobs owned by other users of the system
     List the active and inactive systemd timers
 
-    
-Services:
-    List network connections (TCP & UDP)
-    List running processes
-    Lookup and list process binaries and associated permissions
-    List inetd.conf/xined.conf contents and associated binary file permissions
-    List init.d binary permissions
-    Version Information (of the following):
-    Sudo
-    MYSQL
-    Postgres
-    Apache
-    Checks user config
-    Shows enabled modules
-    Checks for htpasswd files
-    View www directories
-    Default/Weak Credentials:
-    Checks for default/weak Postgres accounts
-    Checks for default/weak MYSQL accounts
+    Services:
+        List network connections (TCP & UDP)
+        List running processes
+        Lookup and list process binaries and associated permissions
+        List inetd.conf/xined.conf contents and associated binary file permissions
+        List init.d binary permissions
+        Version Information (of the following):
+        Sudo
+        MYSQL
+        Postgres
+        Apache
+        Checks user config
+        Shows enabled modules
+        Checks for htpasswd files
+        View www directories
+        Default/Weak Credentials:
+        Checks for default/weak Postgres accounts
+        Checks for default/weak MYSQL accounts
     
 Searches:
     Locate all SUID/GUID files
