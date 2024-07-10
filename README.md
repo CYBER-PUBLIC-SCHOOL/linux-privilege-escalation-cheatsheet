@@ -108,23 +108,26 @@ The /etc/security/opasswd file is used also by pam_cracklib to keep the history 
 
 ⚠ Treat your opasswd file like your /etc/shadow file because it will end up containing user password hashes
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Last edited files
 
-Files that were edited in the last 10 minutes
-find / -mmin -10 2>/dev/null | grep -Ev "^/proc"
+    Files that were edited in the last 10 minutes
+    find / -mmin -10 2>/dev/null | grep -Ev "^/proc"
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 In memory passwords
 
-strings /dev/mem -n10 | grep -i PASS
+    strings /dev/mem -n10 | grep -i PASS
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Find sensitive files
 
-$ locate password | more           
-/boot/grub/i386-pc/password.mod
-/etc/pam.d/common-password
-/etc/pam.d/gdm-password
-/etc/pam.d/gdm-password.original
-/lib/live/config/0031-root-password
+    $ locate password | more           
+    /boot/grub/i386-pc/password.mod
+    /etc/pam.d/common-password
+    /etc/pam.d/gdm-password
+    /etc/pam.d/gdm-password.original
+    /lib/live/config/0031-root-password
+    
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SSH Key
 Sensitive files
