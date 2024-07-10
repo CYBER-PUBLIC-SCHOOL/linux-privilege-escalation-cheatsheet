@@ -2,7 +2,9 @@ Linux Privilege Escalation Cheat Sheet:-
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Tools 1:-
+
 There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escalation vectors. Here are a few:
+
 LinPEAS - Linux Privilege Escalation Awesome Script
 wget "https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh" -O linpeas.sh
 curl "https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh" -o linpeas.sh
@@ -12,6 +14,7 @@ curl "https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.s
 LinuxSmartEnumeration - Linux enumeration tools for pentesting and CTFs
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Tools 2:-
+
 wget "https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh" -O lse.sh
 curl "https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh" -o lse.sh
 ./lse.sh -l1 # shows interesting information that should help you to privesc
