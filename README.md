@@ -83,8 +83,9 @@ unix-privesc-check - Automatically exported from code.google.com/p/unix-privesc-
         Default/Weak Credentials:
         Checks for default/weak Postgres accounts
         Checks for default/weak MYSQL accounts
-    
-Searches:
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    Searches:
         Locate all SUID/GUID files
         Locate all world-writable SUID/GUID files
         Locate all SUID/GUID files owned by root
