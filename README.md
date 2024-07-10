@@ -1,4 +1,5 @@
 Linux Privilege Escalation Cheat Sheet:-
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Tools 1:-
 There are many scripts that you can execute on a linux machine which automatically enumerate sytem information, processes, and files to locate privilege escalation vectors. Here are a few:
